@@ -2,6 +2,14 @@
 
 Standalone hero pages — each in its own folder under `pages/`.
 
+## Live (GitHub Pages)
+
+- **Hub:** https://kryophorax.github.io/trialwebpages/
+- **Energy:** https://kryophorax.github.io/trialwebpages/pages/hayagreeva-energy/
+- **Liquid Glass:** https://kryophorax.github.io/trialwebpages/pages/hayagreeva-liquid-glass/
+- **Orb:** https://kryophorax.github.io/trialwebpages/pages/daynight-style/
+- **Noctra:** https://kryophorax.github.io/trialwebpages/pages/hayagreeva-noctra/
+
 ## Run locally
 
 Serve from the **repo root**:
