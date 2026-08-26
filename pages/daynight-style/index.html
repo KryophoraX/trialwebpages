@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0B1220" />
+  <meta name="description" content="Hayagreeva — direct-to-chip liquid cooling for AI. Interactive orb hero inspired by agency scroll storytelling." />
+  <title>Hayagreeva Energy · Thermal Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@300;400;500;600&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="has-loader">
+  <div class="loader" id="loader" aria-hidden="false">
+    <div class="ld-tl">Hayagreeva</div>
+    <div class="ld-tr">EST. 2026</div>
+    <p class="ld-phase" id="loaderPhase"><span class="ld-phase-text">Initialising</span></p>
+    <div class="ld-br" id="loaderPct">0%</div>
+    <div class="ld-center">
+      <div class="ld-wordmark" aria-label="Hayagreeva">
+        <span class="ld-day">Haya</span><span class="ld-night">greeva</span>
+      </div>
+      <p class="ld-tagline">
+        <span>Energy</span>
+        <span>Thermal engineering</span>
+        <span>AI cooling</span>
+      </p>
+    </div>
+    <div class="ld-bar"><div class="ld-bar-fill" id="loaderBar"></div></div>
+  </div>
+
+  <canvas id="stars" class="stars-canvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scroll-progress"><div class="scroll-progress-bar" id="scrollProg"></div></div>
+
+  <nav class="nav" id="nav">
+    <a class="nav-brand" href="#" aria-label="Hayagreeva Energy Thermal Engineering">
+      <img class="nav-logo nav-logo--dark" src="assets/logo.svg" alt="" width="180" height="22" />
+      <img class="nav-logo nav-logo--light" src="assets/logo-light.svg" alt="" width="180" height="22" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#hex">HEx</a></li>
+      <li><a href="#solutions">Technology</a></li>
+      <li><a href="#why">Why</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">
+      <span>Request samples</span>
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </a>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-stage">
+      <div class="orb-shell">
+        <div class="orb" id="orb" role="img" tabindex="0" aria-label="Interactive cooling orb. Drag to spin.">
+          <div class="orb-core"></div>
+          <div class="orb-glow"></div>
+          <canvas id="orbDots" width="600" height="600"></canvas>
+          <span class="orb-tap" id="orbTap">TAP ME</span>
+        </div>
+        <div class="orb-ring orb-ring-1"></div>
+        <div class="orb-ring orb-ring-2"></div>
+        <div class="orb-ring orb-ring-3"></div>
+      </div>
+
+      <p class="hero-brand">Hayagreeva</p>
+      <h1 class="hero-title">
+        <span class="line">
+          <span class="word" style="--d:.00s">Liquid</span>
+          <span class="word" style="--d:.08s">cooling</span>
+        </span>
+        <span class="line">
+          <span class="word" style="--d:.16s">for</span>
+          <span class="word" style="--d:.24s">AI</span>
+          <span class="word" style="--d:.32s">that</span>
+          <em class="word" style="--d:.40s">runs</em>
+          <span class="word" style="--d:.48s">hot</span>
+        </span>
+      </h1>
+
+      <div class="hero-foot">
+        <p class="hero-sub">Direct-to-chip cold plates for next-generation accelerators — continuous heat removal above 5,000 W.</p>
+        <form class="hero-audit-form" id="heroAuditForm">
+          <input type="email" name="email" class="hero-audit-input" required placeholder="Work email for evaluation kit…" aria-label="Work email" />
+          <button type="submit" class="hero-audit-btn">
+            <span>Request</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+        </form>
+        <p class="hero-audit-note">Qualified partner samples</p>
+      </div>
+
+      <div class="hero-scroll">
+        <span class="scroll-line"></span>
+        <span class="scroll-label">Scroll · cool to deep</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Direct-to-chip</span><span class="mq-dot">✦</span>
+      <span>5,000+ W</span><span class="mq-dot">✦</span>
+      <span>Copper matrix</span><span class="mq-dot">✦</span>
+      <span>0.005 °C/W</span><span class="mq-dot">✦</span>
+      <span>NVIDIA · AMD · Intel</span><span class="mq-dot">✦</span>
+      <span>Data centers</span><span class="mq-dot">✦</span>
+      <span>Hyperscalers</span><span class="mq-dot">✦</span>
+      <span>HPC racks</span><span class="mq-dot">✦</span>
+      <span>Direct-to-chip</span><span class="mq-dot">✦</span>
+      <span>5,000+ W</span><span class="mq-dot">✦</span>
+      <span>Copper matrix</span><span class="mq-dot">✦</span>
+      <span>0.005 °C/W</span><span class="mq-dot">✦</span>
+      <span>NVIDIA · AMD · Intel</span><span class="mq-dot">✦</span>
+      <span>Data centers</span><span class="mq-dot">✦</span>
+      <span>Hyperscalers</span><span class="mq-dot">✦</span>
+      <span>HPC racks</span><span class="mq-dot">✦</span>
+    </div>
+  </section>
+
+  <section class="services" id="solutions">
+    <div class="section-head">
+      <span class="section-num">(01)</span>
+      <span class="section-label">What we cool</span>
+    </div>
+    <div class="svc-intro">
+      <p class="svc-lead-main">Hayagreeva is thermal infrastructure for the AI era.</p>
+      <p class="svc-lead-sub">Cold plates, energy path, and copper-matrix heat transfer — one product focus.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc-card svc-card--hero">
+        <span class="svc-num">01</span>
+        <h3 class="svc-h">Hayagreeva HEx</h3>
+        <p class="svc-proof">Direct-to-chip liquid-cooling cold plate for GPUs, CPUs, and accelerators.</p>
+        <ul class="svc-list">
+          <li>5,000+ W continuous</li>
+          <li>0.005 °C/W rated</li>
+          <li>Package-specific fit</li>
+          <li>CDU-ready loop</li>
+        </ul>
+        <div class="svc-card-foot">
+          <span>Launched May ’26</span>
+          <span class="svc-cta">HEx →</span>
+        </div>
+      </article>
+      <article class="svc-card svc-card-accent">
+        <span class="svc-num">02</span>
+        <h3 class="svc-h">Copper matrix</h3>
+        <p class="svc-proof">High wetted-area architecture at the chip interface.</p>
+        <ul class="svc-list">
+          <li>4,000+ m²/m³ surface</li>
+          <li>Heat-flux focused</li>
+          <li>Pressure-drop aware</li>
+          <li>14 patent filings</li>
+        </ul>
+        <div class="svc-card-foot">
+          <span>Thermal IP</span>
+          <span class="svc-cta">Tech →</span>
+        </div>
+      </article>
+      <article class="svc-card svc-card-dark">
+        <span class="svc-num">03</span>
+        <h3 class="svc-h">Facility path</h3>
+        <p class="svc-proof">From die heat to rack manifold to building rejection.</p>
+        <ul class="svc-list">
+          <li>Cold plate</li>
+          <li>CDU</li>
+          <li>Rack manifold</li>
+          <li>Heat rejection</li>
+        </ul>
+        <div class="svc-card-foot">
+          <span>System scale</span>
+          <span class="svc-cta">Path →</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="work" id="hex">
+    <div class="section-head">
+      <span class="section-num">(02)</span>
+      <span class="section-label">HEx at a glance</span>
+      <span class="section-meta">Public product claims · May 2026</span>
+    </div>
+    <div class="strip-top">
+      <p class="strip-lead">Specs that matter at the chip boundary</p>
+      <span class="strip-count"><b id="stripNow">01</b> / 04</span>
+    </div>
+    <div class="strip-stage">
+      <button type="button" class="strip-btn" id="stripPrev" aria-label="Previous">‹</button>
+      <div class="strip-viewport">
+        <div class="strip-track" id="stripTrack">
+          <article class="strip-card">
+            <div class="strip-shot" style="--g:linear-gradient(135deg,#0b1a33,#2563eb66)">
+              <span class="strip-domain">Thermal capacity</span>
+            </div>
+            <div class="strip-info">
+              <span class="strip-idx">01</span>
+              <h3 class="strip-name">5,000+ W</h3>
+              <p class="strip-desc">Continuous heat removal claimed for next-generation accelerator packages under matched test conditions.</p>
+            </div>
+          </article>
+          <article class="strip-card">
+            <div class="strip-shot" style="--g:linear-gradient(135deg,#0a2038,#0ea5e955)">
+              <span class="strip-domain">Thermal resistance</span>
+            </div>
+            <div class="strip-info">
+              <span class="strip-idx">02</span>
+              <h3 class="strip-name">0.005 °C/W</h3>
+              <p class="strip-desc">Rated resistance — at 5,000 W implies roughly a 25 °C rise across the measured path.</p>
+            </div>
+          </article>
+          <article class="strip-card">
+            <div class="strip-shot" style="--g:linear-gradient(135deg,#102038,#38bdf855)">
+              <span class="strip-domain">Architecture</span>
+            </div>
+            <div class="strip-info">
+              <span class="strip-idx">03</span>
+              <h3 class="strip-name">4,000+ m²/m³</h3>
+              <p class="strip-desc">Copper-matrix wetted surface density to expand heat transfer at the chip interface.</p>
+            </div>
+          </article>
+          <article class="strip-card">
+            <div class="strip-shot" style="--g:linear-gradient(135deg,#0c1628,#1d4ed855)">
+              <span class="strip-domain">Compatibility</span>
+            </div>
+            <div class="strip-info">
+              <span class="strip-idx">04</span>
+              <h3 class="strip-name">NVIDIA · AMD · Intel</h3>
+              <p class="strip-desc">Accelerator architectures supported with package-specific fitting, fluid, and OEM qualification.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <button type="button" class="strip-btn" id="stripNext" aria-label="Next">›</button>
+    </div>
+  </section>
+
+  <section class="quote">
+    <div class="quote-inner">
+      <p class="quote-text">
+        <span class="qmark">“</span>AI racks are becoming too power-dense for conventional air cooling. Direct-to-chip liquid cooling is the path forward.<span class="qmark">”</span>
+      </p>
+      <div class="quote-by">
+        <div class="quote-name">Industry brief · August 2026</div>
+        <div class="quote-role">AI data-center cooling landscape</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why" id="why">
+    <div class="why-copy">
+      <p class="why-kicker">(04) Energy path</p>
+      <h2 class="why-title">From chip heat to facility rejection — <em>one continuous loop</em>.</h2>
+      <p class="why-lead">Hayagreeva HEx sits at the interface where semiconductor waste heat becomes manageable fluid energy for the rack and the building.</p>
+      <div class="why-words" role="tablist">
+        <button type="button" class="why-word is-on" data-go="build">Mount</button>
+        <button type="button" class="why-word" data-go="understand">Transfer</button>
+        <button type="button" class="why-word" data-go="improve">Reject</button>
+      </div>
+    </div>
+    <div class="why-panel" id="whyPanel">
+      <p class="why-panel-k" id="whyPanelK">01 / Mount</p>
+      <p class="why-panel-t" id="whyPanelT">Cold plate mounts on the GPU, CPU, or accelerator package.</p>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <p class="cta-eyebrow">For OEMs &amp; hyperscalers</p>
+    <h2 class="cta-title">Cooler chips.<br /><em>Smarter racks.</em></h2>
+    <p class="cta-lead">Request qualified-partner samples or a technical evaluation of Hayagreeva HEx.</p>
+    <div class="cta-actions">
+      <a class="cta-primary" href="#top">Request samples</a>
+      <a class="cta-secondary" href="/pages/hayagreeva-energy/">See page 1 →</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-brand">
+      <img class="nav-logo nav-logo--dark" src="assets/logo.svg" alt="Hayagreeva" width="160" height="20" />
+      <img class="nav-logo nav-logo--light" src="assets/logo-light.svg" alt="Hayagreeva" width="160" height="20" />
+    </div>
+    <p class="foot-note">Thermal engineering · Agency-style layout inspired by daynight.co.uk</p>
+    <a class="foot-hub" href="/">← All pages</a>
+  </footer>
+
+  <div class="toast" id="toast" hidden>Request noted — demo only.</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#2563EB" />
+  <meta name="description" content="Hayagreeva HEx — direct-to-chip liquid cooling for next-generation AI accelerators. 5,000+ W continuous heat removal." />
+  <title>Hayagreeva Energy — HEx Direct-to-Chip Cooling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-logo" href="#" aria-label="Hayagreeva Energy Thermal Engineering">
+      <img class="site-logo__img" src="assets/logo.svg" alt="" width="240" height="35" />
+    </a>
+    <nav class="site-nav" aria-label="Website planner">
+      <a href="#" class="site-nav-link is-active">Home</a>
+      <a href="#" class="site-nav-link">Products</a>
+      <a href="#" class="site-nav-link">Technology</a>
+      <a href="#" class="site-nav-link">Career</a>
+      <a href="#" class="site-nav-link">Manufacturing</a>
+      <a href="#" class="site-nav-link">About</a>
+      <a href="#" class="site-nav-link">Contact/Webform</a>
+    </nav>
+  </header>
+
+  <nav class="nav-dots" aria-label="Section navigation">
+    <button class="nav-dot active" data-target="1" aria-label="Hero"></button>
+    <button class="nav-dot dark" data-target="2" aria-label="Product"></button>
+    <button class="nav-dot dark" data-target="3" aria-label="Energy flow"></button>
+    <button class="nav-dot dark" data-target="4" aria-label="Technology"></button>
+    <button class="nav-dot" data-target="5" aria-label="Deploy"></button>
+  </nav>
+
+  <main id="snap-root" class="snap-root">
+    <section name="1" data-section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-fallback"></div>
+        <video autoplay muted loop playsinline>
+          <source src="https://cdn.jsdelivr.net/gh/koolmicro/asset@web/cbcc2ff6a0894e6e7f9a1a6a6a36b68fb36aa151.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-brand">
+          <span class="hero-wordmark">Hayagreeva</span>
+        </div>
+        <div class="hero-rotator">
+          <span>Liquid Cooling</span>
+          <span class="for">for</span>
+          <span class="rotator-word" id="rotator-word">GPUs.</span>
+        </div>
+        <h1 class="hero-tagline"><span class="text-gradient">Cooler,</span> Smarter.</h1>
+        <p class="hero-sub">
+          Hayagreeva HEx is a direct-to-chip liquid-cooling cold plate built for
+          next-generation accelerators — validated for continuous heat removal above 5,000 W.
+        </p>
+      </div>
+
+      <span class="scroll-hint">Scroll</span>
+    </section>
+
+    <section name="2" data-section class="section-light">
+      <div class="section-blobs" aria-hidden="true">
+        <div class="blob blob--blue"></div>
+        <div class="blob blob--sky"></div>
+      </div>
+      <div class="section-inner split">
+        <div>
+          <p class="section-kicker">Hayagreeva HEx</p>
+          <h2 class="section-title">A liquid-cooling powerhouse</h2>
+          <div class="section-body">
+            <p>
+              A cold plate mounts directly on a GPU, CPU, or accelerator package.
+              Liquid flows through the plate and transports thermal energy to a coolant
+              distribution unit (CDU), then onward to the facility heat-rejection system.
+            </p>
+            <p class="muted">
+              Direct-to-chip liquid cooling concentrates capacity at the highest-heat
+              components in AI systems — where conventional air cooling can no longer
+              keep pace with rack power density.
+            </p>
+          </div>
+          <a class="section-link" href="#flow">See the energy path →</a>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-value">5,000+ W</div>
+            <div class="stat-label">Continuous heat removal</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0.005</div>
+            <div class="stat-label">°C/W rated thermal resistance</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">4,000+</div>
+            <div class="stat-label">m²/m³ wetted surface area</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">May '26</div>
+            <div class="stat-label">Product launch</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section name="3" id="flow" data-section class="section-grey">
+      <div class="section-blobs" aria-hidden="true">
+        <div class="blob blob--sky"></div>
+      </div>
+      <div class="section-inner">
+        <p class="section-kicker">Energy Path</p>
+        <h2 class="section-title">From chip heat to facility rejection</h2>
+        <div class="section-body">
+          <p>
+            Hayagreeva HEx sits at the interface where semiconductor waste heat becomes
+            manageable fluid energy. The system moves thermal load off the die, through
+            the rack, and out of the building — enabling sustained accelerator performance
+            without thermal throttling.
+          </p>
+        </div>
+
+        <div class="flow-diagram" role="img" aria-label="Heat flow: Chip to cold plate to CDU to facility heat rejection">
+          <svg viewBox="0 0 720 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="flow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#2563EB"/>
+                <stop offset="100%" stop-color="#0EA5E9"/>
+              </linearGradient>
+              <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#0EA5E9"/>
+              </marker>
+            </defs>
+            <rect x="10" y="35" width="100" height="50" rx="8" fill="#2563EB" opacity="0.1" stroke="#2563EB"/>
+            <text x="60" y="58" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="600">Chip</text>
+            <text x="60" y="72" text-anchor="middle" fill="#64748B" font-size="9">Waste heat</text>
+
+            <line x1="110" y1="60" x2="155" y2="60" stroke="url(#flow-grad)" stroke-width="3" marker-end="url(#arrow)"/>
+
+            <rect x="160" y="30" width="120" height="60" rx="8" fill="#0EA5E9" opacity="0.15" stroke="#0EA5E9" stroke-width="2"/>
+            <text x="220" y="55" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="700">Hayagreeva HEx</text>
+            <text x="220" y="70" text-anchor="middle" fill="#64748B" font-size="9">Cold plate</text>
+
+            <line x1="280" y1="60" x2="325" y2="60" stroke="url(#flow-grad)" stroke-width="3" marker-end="url(#arrow)"/>
+
+            <rect x="330" y="35" width="90" height="50" rx="8" fill="#2563EB" opacity="0.1" stroke="#2563EB"/>
+            <text x="375" y="65" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="600">CDU</text>
+
+            <line x1="420" y1="60" x2="465" y2="60" stroke="url(#flow-grad)" stroke-width="3" marker-end="url(#arrow)"/>
+
+            <rect x="470" y="35" width="110" height="50" rx="8" fill="#2563EB" opacity="0.1" stroke="#2563EB"/>
+            <text x="525" y="58" text-anchor="middle" fill="#2563EB" font-size="10" font-weight="600">Rack manifold</text>
+            <text x="525" y="72" text-anchor="middle" fill="#64748B" font-size="9">Piping loop</text>
+
+            <line x1="580" y1="60" x2="625" y2="60" stroke="url(#flow-grad)" stroke-width="3" marker-end="url(#arrow)"/>
+
+            <rect x="630" y="35" width="80" height="50" rx="8" fill="#0EA5E9" opacity="0.15" stroke="#0EA5E9"/>
+            <text x="670" y="58" text-anchor="middle" fill="#2563EB" font-size="10" font-weight="600">Facility</text>
+            <text x="670" y="72" text-anchor="middle" fill="#64748B" font-size="9">Heat rejection</text>
+          </svg>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Lower chip temperature</h3>
+            <p>Reduces thermal throttling so accelerators sustain peak compute under load.</p>
+          </div>
+          <div class="feature-card">
+            <h3>System-scale efficiency</h3>
+            <p>Performance depends on pressure drop and pump energy across the full loop — not the plate alone.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Facility integration</h3>
+            <p>Designed to connect with CDUs, rack manifolds, and building-level heat-rejection infrastructure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section name="4" data-section class="section-light">
+      <div class="section-blobs" aria-hidden="true">
+        <div class="blob blob--blue"></div>
+      </div>
+      <div class="section-inner">
+        <p class="section-kicker">Copper-Matrix Technology</p>
+        <h2 class="section-title">Engineered for extreme heat flux</h2>
+        <div class="section-body">
+          <p>
+            Hayagreeva HEx uses a copper matrix with more than 4,000 m²/m³ of wetted
+            surface area — expanding the heat-transfer interface at the chip boundary.
+            At 5,000 W with 0.005 °C/W rated thermal resistance, the measured path
+            implies roughly a 25 °C temperature rise; exact results depend on coolant,
+            flow rate, inlet temperature, and package geometry.
+          </p>
+        </div>
+
+        <table class="spec-table">
+          <tbody>
+            <tr>
+              <th>Thermal capacity</th>
+              <td>More than 5,000 W continuous heat removal</td>
+            </tr>
+            <tr>
+              <th>Thermal resistance</th>
+              <td>0.005 °C/W rated</td>
+            </tr>
+            <tr>
+              <th>Architecture</th>
+              <td>Copper matrix with 4,000+ m²/m³ wetted surface</td>
+            </tr>
+            <tr>
+              <th>Compatibility</th>
+              <td>NVIDIA, AMD, and Intel accelerator architectures — package-specific fitting, mounting, connectors, and fluid required</td>
+            </tr>
+            <tr>
+              <th>IP</th>
+              <td>14 patent filings supporting the thermal design</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section name="5" data-section class="section-cta">
+      <div class="cta-logo">
+        <span class="hero-wordmark hero-wordmark--light">Hayagreeva</span>
+      </div>
+      <h2>Built for high-density AI</h2>
+      <p>
+        Hayagreeva HEx targets data centers, OEM platforms, system integrators,
+        hyperscalers, and sovereign AI programs where rack power density demands
+        direct-to-chip liquid cooling at scale.
+      </p>
+      <p class="meta-note">
+        Hayagreeva HEx · Launched May 28, 2026 · Performance figures from public product materials.
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
