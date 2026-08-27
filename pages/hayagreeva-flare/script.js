@@ -5,75 +5,36 @@
   const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const SCALE = 0.5;
+  // Near-full res keeps the ribbon smooth when scaled up
+  const SCALE = 0.75;
   const TARGET_FPS = 30;
   const FRAME_MS = 1000 / TARGET_FPS;
+  const STEPS = 120;
 
-  let w = 0;
-  let h = 0;
   let cw = 0;
   let ch = 0;
   let raf = 0;
   let t0 = performance.now();
   let lastDraw = 0;
 
-  // Each wave carries its own spectrum (RGB stops along the sine)
-  const waves = [
-    {
-      y: 0.46,
-      amp: 0.22,
-      freq: 1.05,
-      phase: 0,
-      speed: 0.65,
-      drift: 0.06,
-      // magenta → coral → gold → mint → cyan
-      stops: [
-        [255, 70, 160],
-        [255, 120, 70],
-        [255, 210, 90],
-        [120, 255, 180],
-        [80, 200, 255],
-      ],
-    },
-    {
-      y: 0.6,
-      amp: 0.15,
-      freq: 1.5,
-      phase: 2.1,
-      speed: 0.45,
-      drift: -0.04,
-      // violet → blue → teal → lime
-      stops: [
-        [160, 80, 255],
-        [70, 140, 255],
-        [40, 220, 230],
-        [160, 255, 120],
-        [255, 200, 80],
-      ],
-    },
-    {
-      y: 0.36,
-      amp: 0.1,
-      freq: 1.9,
-      phase: 4.0,
-      speed: 0.8,
-      drift: 0.05,
-      // deep blue → cyan → white-pink → orange
-      stops: [
-        [40, 80, 255],
-        [60, 220, 255],
-        [255, 200, 220],
-        [255, 140, 60],
-        [255, 80, 100],
-      ],
-    },
-  ];
+  // Preallocated sample buffers
+  const xs = new Float32Array(STEPS + 1);
+  const ys = new Float32Array(STEPS + 1);
+  const nxs = new Float32Array(STEPS + 1);
+  const nys = new Float32Array(STEPS + 1);
 
-  const points = new Float32Array(256);
+  const wave = {
+    y: 0.5,
+    amp: 0.18,
+    freq: 1.05,
+    phase: 0,
+    speed: 0.45,
+    drift: 0.04,
+  };
 
   function resize() {
-    w = window.innerWidth;
-    h = window.innerHeight;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
     cw = Math.max(1, Math.floor(w * SCALE));
     ch = Math.max(1, Math.floor(h * SCALE));
     canvas.width = cw;
@@ -83,81 +44,109 @@
     ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 
-  function lerpColor(stops, t) {
-    const n = stops.length - 1;
-    const x = Math.max(0, Math.min(1, t)) * n;
-    const i = Math.min(n - 1, Math.floor(x));
-    const f = x - i;
-    const a = stops[i];
-    const b = stops[i + 1];
-    return [
-      (a[0] + (b[0] - a[0]) * f) | 0,
-      (a[1] + (b[1] - a[1]) * f) | 0,
-      (a[2] + (b[2] - a[2]) * f) | 0,
-    ];
-  }
-
-  function fillPoints(wave, time, count) {
-    const yBase = ch * wave.y + Math.sin(time * wave.drift + wave.phase) * ch * 0.025;
+  function sampleWave(time) {
+    const yBase = ch * wave.y + Math.sin(time * wave.drift + wave.phase) * ch * 0.02;
     const amp = ch * wave.amp;
     const phase = wave.phase + time * wave.speed;
-    const x0 = -cw * 0.05;
-    const span = cw * 1.1;
-    const n = Math.min(count, points.length / 2);
+    const x0 = -cw * 0.08;
+    const span = cw * 1.16;
 
+    for (let i = 0; i <= STEPS; i++) {
+      const u = i / STEPS;
+      xs[i] = x0 + span * u;
+      ys[i] = yBase + Math.sin(u * Math.PI * 2 * wave.freq + phase) * amp;
+    }
+
+    // Smooth normals from neighboring points
+    for (let i = 0; i <= STEPS; i++) {
+      const i0 = Math.max(0, i - 1);
+      const i1 = Math.min(STEPS, i + 1);
+      const dx = xs[i1] - xs[i0];
+      const dy = ys[i1] - ys[i0];
+      const len = Math.hypot(dx, dy) || 1;
+      nxs[i] = -dy / len;
+      nys[i] = dx / len;
+    }
+  }
+
+  function fillRibbon(halfW) {
+    ctx.beginPath();
+    ctx.moveTo(xs[0] + nxs[0] * halfW, ys[0] + nys[0] * halfW);
+    for (let i = 1; i <= STEPS; i++) {
+      ctx.lineTo(xs[i] + nxs[i] * halfW, ys[i] + nys[i] * halfW);
+    }
+    for (let i = STEPS; i >= 0; i--) {
+      ctx.lineTo(xs[i] - nxs[i] * halfW, ys[i] - nys[i] * halfW);
+    }
+    ctx.closePath();
+  }
+
+  function softGradient(alpha, time) {
+    // Blue-only ribbon — deep → electric → ice, soft end fades
+    const shift = (time * 0.05) % 1;
+    const g = ctx.createLinearGradient(0, 0, cw, 0);
+    const colors = [
+      [30, 70, 180],
+      [50, 120, 255],
+      [120, 190, 255],
+      [200, 230, 255],
+      [70, 150, 255],
+      [40, 90, 210],
+    ];
+    const n = colors.length;
     for (let i = 0; i < n; i++) {
-      const u = i / (n - 1);
-      points[i * 2] = x0 + span * u;
-      points[i * 2 + 1] = yBase + Math.sin(u * Math.PI * 2 * wave.freq + phase) * amp;
+      const t = i / (n - 1);
+      const idx = (i + Math.floor(shift * n)) % n;
+      const next = (idx + 1) % n;
+      const f = (shift * n) % 1;
+      const r = (colors[idx][0] + (colors[next][0] - colors[idx][0]) * f) | 0;
+      const gC = (colors[idx][1] + (colors[next][1] - colors[idx][1]) * f) | 0;
+      const b = (colors[idx][2] + (colors[next][2] - colors[idx][2]) * f) | 0;
+      const edge = Math.min(t, 1 - t);
+      const fade = Math.min(1, edge / 0.18);
+      g.addColorStop(t, `rgba(${r},${gC},${b},${alpha * fade})`);
     }
-    return n;
+    return g;
   }
 
-  function strokeBand(n, width, stops, alpha, hueShift) {
-    // Short segments so the spectrum rides along the sine
-    const segs = 32;
-    ctx.lineWidth = width;
-    for (let s = 0; s < segs; s++) {
-      const u0 = s / segs;
-      const u1 = (s + 1) / segs;
-      const i0 = Math.floor(u0 * (n - 1));
-      const i1 = Math.max(i0 + 1, Math.floor(u1 * (n - 1)));
-      const mid = (u0 + u1) * 0.5;
-      const edge = Math.min(mid, 1 - mid);
-      const fade = Math.min(1, edge / 0.1);
-      if (fade < 0.02) continue;
+  function draw(time) {
+    sampleWave(time);
+    const pulse = 0.88 + 0.12 * Math.sin(time * 0.6);
 
-      const [r, g, b] = lerpColor(stops, (mid + hueShift) % 1);
-      ctx.beginPath();
-      ctx.moveTo(points[i0 * 2], points[i0 * 2 + 1]);
-      for (let i = i0 + 1; i <= i1; i++) {
-        ctx.lineTo(points[i * 2], points[i * 2 + 1]);
-      }
-      ctx.strokeStyle = `rgba(${r},${g},${b},${alpha * fade})`;
-      ctx.stroke();
-    }
-  }
+    ctx.globalCompositeOperation = "lighter";
 
-  function drawWave(wave, time) {
-    const n = fillPoints(wave, time, 64);
-    const pulse = 0.8 + 0.2 * Math.sin(time * wave.speed * 0.8 + wave.phase);
-    // Slow color drift along the graph
-    const hueShift = (time * 0.08 + wave.phase * 0.1) % 1;
+    // Outer bloom — wide, very soft, one fill
+    fillRibbon(42);
+    ctx.fillStyle = softGradient(0.07 * pulse, time);
+    ctx.fill();
 
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
+    fillRibbon(26);
+    ctx.fillStyle = softGradient(0.12 * pulse, time);
+    ctx.fill();
 
-    strokeBand(n, 44, wave.stops, 0.08 * pulse, hueShift);
-    strokeBand(n, 22, wave.stops, 0.14 * pulse, hueShift);
-    strokeBand(n, 10, wave.stops, 0.28 * pulse, hueShift);
-    strokeBand(n, 3.5, wave.stops, 0.55 * pulse, hueShift);
-    // Hot white core
-    strokeBand(n, 1.4, [[255, 255, 255], [255, 255, 255]], 0.7 * pulse, 0);
+    // Main body of the light
+    fillRibbon(14);
+    ctx.fillStyle = softGradient(0.28 * pulse, time);
+    ctx.fill();
+
+    fillRibbon(7);
+    ctx.fillStyle = softGradient(0.4 * pulse, time);
+    ctx.fill();
+
+    // Soft blue-white core
+    fillRibbon(2.8);
+    ctx.fillStyle = `rgba(210,235,255,${0.4 * pulse})`;
+    ctx.fill();
+
+    fillRibbon(1.1);
+    ctx.fillStyle = `rgba(230,245,255,${0.7 * pulse})`;
+    ctx.fill();
+
+    ctx.globalCompositeOperation = "source-over";
   }
 
   function frame(now) {
     if (!reduced) raf = requestAnimationFrame(frame);
-
     if (now - lastDraw < FRAME_MS) return;
     lastDraw = now;
 
@@ -167,15 +156,16 @@
     ctx.fillStyle = "#050505";
     ctx.fillRect(0, 0, cw, ch);
 
-    const g = ctx.createRadialGradient(cw * 0.5, ch * 0.45, 0, cw * 0.5, ch * 0.45, ch * 0.65);
-    g.addColorStop(0, "rgba(28, 24, 48, 0.35)");
-    g.addColorStop(1, "rgba(5, 5, 5, 0)");
-    ctx.fillStyle = g;
+    const ambient = ctx.createRadialGradient(
+      cw * 0.5, ch * 0.48, 0,
+      cw * 0.5, ch * 0.48, ch * 0.7
+    );
+    ambient.addColorStop(0, "rgba(18, 28, 55, 0.32)");
+    ambient.addColorStop(1, "rgba(5, 5, 5, 0)");
+    ctx.fillStyle = ambient;
     ctx.fillRect(0, 0, cw, ch);
 
-    ctx.globalCompositeOperation = "lighter";
-    for (let i = 0; i < waves.length; i++) drawWave(waves[i], time);
-    ctx.globalCompositeOperation = "source-over";
+    draw(time);
   }
 
   function start() {
