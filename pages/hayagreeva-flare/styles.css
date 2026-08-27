@@ -53,6 +53,10 @@ img { display: block; max-width: 100%; }
   height: 100%;
   z-index: 0;
   pointer-events: none;
+  /* GPU blur turns the ribbon into one uniform soft blue light */
+  filter: blur(28px);
+  opacity: 0.95;
+  will-change: contents;
 }
 
 .grain {

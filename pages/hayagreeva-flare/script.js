@@ -2,14 +2,14 @@
   const canvas = document.getElementById("flare-bg");
   if (!canvas) return;
 
-  const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
+  // Transparent canvas — page bg shows through; CSS blurs this into one soft beam
+  const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Near-full res keeps the ribbon smooth when scaled up
-  const SCALE = 0.75;
+  const SCALE = 0.7;
   const TARGET_FPS = 30;
   const FRAME_MS = 1000 / TARGET_FPS;
-  const STEPS = 120;
+  const STEPS = 100;
 
   let cw = 0;
   let ch = 0;
@@ -17,19 +17,18 @@
   let t0 = performance.now();
   let lastDraw = 0;
 
-  // Preallocated sample buffers
   const xs = new Float32Array(STEPS + 1);
   const ys = new Float32Array(STEPS + 1);
   const nxs = new Float32Array(STEPS + 1);
   const nys = new Float32Array(STEPS + 1);
 
   const wave = {
-    y: 0.5,
-    amp: 0.18,
+    y: 0.52,
+    amp: 0.17,
     freq: 1.05,
     phase: 0,
-    speed: 0.45,
-    drift: 0.04,
+    speed: 0.4,
+    drift: 0.035,
   };
 
   function resize() {
@@ -57,7 +56,6 @@
       ys[i] = yBase + Math.sin(u * Math.PI * 2 * wave.freq + phase) * amp;
     }
 
-    // Smooth normals from neighboring points
     for (let i = 0; i <= STEPS; i++) {
       const i0 = Math.max(0, i - 1);
       const i1 = Math.min(STEPS, i + 1);
@@ -81,91 +79,51 @@
     ctx.closePath();
   }
 
-  function softGradient(alpha, time) {
-    // Blue-only ribbon — deep → electric → ice, soft end fades
-    const shift = (time * 0.05) % 1;
+  /** Saturated blue gradient along X — no white wash */
+  function blueGradient(alpha) {
     const g = ctx.createLinearGradient(0, 0, cw, 0);
-    const colors = [
-      [30, 70, 180],
-      [50, 120, 255],
-      [120, 190, 255],
-      [200, 230, 255],
-      [70, 150, 255],
-      [40, 90, 210],
-    ];
-    const n = colors.length;
-    for (let i = 0; i < n; i++) {
-      const t = i / (n - 1);
-      const idx = (i + Math.floor(shift * n)) % n;
-      const next = (idx + 1) % n;
-      const f = (shift * n) % 1;
-      const r = (colors[idx][0] + (colors[next][0] - colors[idx][0]) * f) | 0;
-      const gC = (colors[idx][1] + (colors[next][1] - colors[idx][1]) * f) | 0;
-      const b = (colors[idx][2] + (colors[next][2] - colors[idx][2]) * f) | 0;
-      const edge = Math.min(t, 1 - t);
-      const fade = Math.min(1, edge / 0.18);
-      g.addColorStop(t, `rgba(${r},${gC},${b},${alpha * fade})`);
-    }
+    g.addColorStop(0, `rgba(20, 60, 180, 0)`);
+    g.addColorStop(0.12, `rgba(30, 90, 220, ${alpha * 0.55})`);
+    g.addColorStop(0.35, `rgba(40, 130, 255, ${alpha})`);
+    g.addColorStop(0.5, `rgba(70, 170, 255, ${alpha})`);
+    g.addColorStop(0.65, `rgba(40, 130, 255, ${alpha})`);
+    g.addColorStop(0.88, `rgba(30, 90, 220, ${alpha * 0.55})`);
+    g.addColorStop(1, `rgba(20, 60, 180, 0)`);
     return g;
   }
 
   function draw(time) {
     sampleWave(time);
-    const pulse = 0.88 + 0.12 * Math.sin(time * 0.6);
+    const pulse = 0.9 + 0.1 * Math.sin(time * 0.55);
 
-    ctx.globalCompositeOperation = "lighter";
+    ctx.clearRect(0, 0, cw, ch);
 
-    // Outer bloom — wide, very soft, one fill
-    fillRibbon(42);
-    ctx.fillStyle = softGradient(0.07 * pulse, time);
-    ctx.fill();
-
-    fillRibbon(26);
-    ctx.fillStyle = softGradient(0.12 * pulse, time);
-    ctx.fill();
-
-    // Main body of the light
-    fillRibbon(14);
-    ctx.fillStyle = softGradient(0.28 * pulse, time);
+    // One body + one brighter core — both blue. CSS blur merges them into one light.
+    fillRibbon(18);
+    ctx.fillStyle = blueGradient(0.85 * pulse);
     ctx.fill();
 
     fillRibbon(7);
-    ctx.fillStyle = softGradient(0.4 * pulse, time);
+    ctx.fillStyle = blueGradient(1 * pulse);
     ctx.fill();
 
-    // Soft blue-white core
-    fillRibbon(2.8);
-    ctx.fillStyle = `rgba(210,235,255,${0.4 * pulse})`;
+    // Cool ice-blue highlight (still blue, not white)
+    fillRibbon(2.5);
+    const core = ctx.createLinearGradient(0, 0, cw, 0);
+    core.addColorStop(0, "rgba(120, 190, 255, 0)");
+    core.addColorStop(0.2, `rgba(140, 200, 255, ${0.55 * pulse})`);
+    core.addColorStop(0.5, `rgba(180, 220, 255, ${0.7 * pulse})`);
+    core.addColorStop(0.8, `rgba(140, 200, 255, ${0.55 * pulse})`);
+    core.addColorStop(1, "rgba(120, 190, 255, 0)");
+    ctx.fillStyle = core;
     ctx.fill();
-
-    fillRibbon(1.1);
-    ctx.fillStyle = `rgba(230,245,255,${0.7 * pulse})`;
-    ctx.fill();
-
-    ctx.globalCompositeOperation = "source-over";
   }
 
   function frame(now) {
     if (!reduced) raf = requestAnimationFrame(frame);
     if (now - lastDraw < FRAME_MS) return;
     lastDraw = now;
-
-    const time = (now - t0) / 1000;
-
-    ctx.globalCompositeOperation = "source-over";
-    ctx.fillStyle = "#050505";
-    ctx.fillRect(0, 0, cw, ch);
-
-    const ambient = ctx.createRadialGradient(
-      cw * 0.5, ch * 0.48, 0,
-      cw * 0.5, ch * 0.48, ch * 0.7
-    );
-    ambient.addColorStop(0, "rgba(18, 28, 55, 0.32)");
-    ambient.addColorStop(1, "rgba(5, 5, 5, 0)");
-    ctx.fillStyle = ambient;
-    ctx.fillRect(0, 0, cw, ch);
-
-    draw(time);
+    draw((now - t0) / 1000);
   }
 
   function start() {
