@@ -8,6 +8,8 @@ Each folder is a **standalone hero / home page** with its own HTML, CSS, and JS.
 | [`hayagreeva-liquid-glass/`](hayagreeva-liquid-glass/) | Live | Liquid glass, fuzzy blur, Cormorant serif, centered |
 | [`daynight-style/`](daynight-style/) | Live | Hayagreeva + DayNight structure: blue orb, cool→deep scroll |
 | [`hayagreeva-noctra/`](hayagreeva-noctra/) | Live | Dark exhibition / Noctra-style: grain, serif + mono, cinematic black |
+| [`hayagreeva-kaiko/`](hayagreeva-kaiko/) | Live | Kaiko-style: navy beam hero, cream panel, orb feature grid |
+| [`hayagreeva-flare/`](hayagreeva-flare/) | Live | Dark cinematic: animated prismatic flares, glass cards, HEx |
 
 ## Conventions
 

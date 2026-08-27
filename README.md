@@ -9,6 +9,8 @@ Standalone hero pages — each in its own folder under `pages/`.
 - **Liquid Glass:** https://kryophorax.github.io/trialwebpages/pages/hayagreeva-liquid-glass/
 - **Orb:** https://kryophorax.github.io/trialwebpages/pages/daynight-style/
 - **Noctra:** https://kryophorax.github.io/trialwebpages/pages/hayagreeva-noctra/
+- **Kaiko:** https://kryophorax.github.io/trialwebpages/pages/hayagreeva-kaiko/
+- **Flare:** https://kryophorax.github.io/trialwebpages/pages/hayagreeva-flare/
 
 ## Run locally
 
@@ -25,6 +27,8 @@ Then open:
 - **Page 2 — Liquid Glass:** http://127.0.0.1:8080/pages/hayagreeva-liquid-glass/
 - **Page 3 — Orb:** http://127.0.0.1:8080/pages/daynight-style/
 - **Page 4 — Noctra:** http://127.0.0.1:8080/pages/hayagreeva-noctra/
+- **Page 5 — Kaiko:** http://127.0.0.1:8080/pages/hayagreeva-kaiko/
+- **Page 6 — Flare:** http://127.0.0.1:8080/pages/hayagreeva-flare/
 
 ## Pages
 
@@ -34,5 +38,7 @@ Then open:
 | Hayagreeva Liquid Glass | [`pages/hayagreeva-liquid-glass/`](pages/hayagreeva-liquid-glass/) | Frosted glass, serif, centered |
 | Hayagreeva Orb | [`pages/daynight-style/`](pages/daynight-style/) | Inspired by [daynight.co.uk](https://www.daynight.co.uk/) |
 | Hayagreeva Noctra | [`pages/hayagreeva-noctra/`](pages/hayagreeva-noctra/) | Dark exhibition: grain, serif + mono, HEx product copy |
+| Hayagreeva Kaiko | [`pages/hayagreeva-kaiko/`](pages/hayagreeva-kaiko/) | Kaiko-style: navy beams, cream panel, orb grid |
+| Hayagreeva Flare | [`pages/hayagreeva-flare/`](pages/hayagreeva-flare/) | Dark cinematic: animated prismatic flares, glass cards |
 
 See [`pages/README.md`](pages/README.md) for conventions.
