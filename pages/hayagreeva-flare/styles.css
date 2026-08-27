@@ -170,10 +170,8 @@ main,
   letter-spacing: -0.04em;
   line-height: 0.95;
   margin-bottom: 0.35rem;
-  background: linear-gradient(180deg, #fff 30%, rgba(255, 255, 255, 0.72) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #fff;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.85);
   animation: rise 1s ease-out both;
 }
 
