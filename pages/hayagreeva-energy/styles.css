@@ -168,8 +168,9 @@ p { max-width: 68ch; }
 }
 
 .site-logo img {
-  height: 32px;
+  height: 34px;
   width: auto;
+  max-width: min(260px, 48vw);
 }
 
 .site-nav {
@@ -246,29 +247,194 @@ p { max-width: 68ch; }
 .hero {
   background: var(--hg-navy);
   color: var(--hg-white);
-  padding: var(--section-pad-y) 0;
+  padding: clamp(48px, 6vw, 72px) 0 clamp(56px, 8vw, 96px);
 }
 
-.hero-inner { max-width: 720px; }
+.hero-layout {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .hero-layout {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+    gap: clamp(2.5rem, 5vw, 4rem);
+    min-height: min(72vh, 720px);
+  }
+}
+
+.hero-copy {
+  text-align: left;
+  max-width: 36rem;
+}
+
+.hero-text-track {
+  position: relative;
+  min-height: clamp(220px, 28vw, 300px);
+}
+
+.hero-text-slide {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.hero-text-slide.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  position: relative;
+}
+
+.hero-text-slide[hidden] {
+  display: block;
+}
+
+.hero-text-slide:not(.is-active) {
+  visibility: hidden;
+  position: absolute;
+}
+
+.hero-text-slide.is-active[hidden] {
+  visibility: visible;
+}
+
+.hero-copy h1 {
+  font-size: clamp(36px, 4.5vw, 48px);
+  line-height: 1.12;
+}
 
 .hero-lead {
   margin-top: 1.25rem;
   font-size: clamp(16px, 2.2vw, 18px);
   color: rgba(255, 255, 255, 0.88);
   line-height: 1.65;
+  max-width: 42ch;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 0.75rem;
   margin-top: 2rem;
 }
 
 .hero-meta {
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
   font-size: var(--text-small);
   color: rgba(255, 255, 255, 0.55);
+  max-width: 42ch;
+}
+
+.hero-showcase {
+  width: 100%;
+}
+
+.hero-visual-track {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: clamp(280px, 42vw, 520px);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0f2438;
+}
+
+@media (min-width: 900px) {
+  .hero-visual-track {
+    aspect-ratio: 16 / 11;
+    min-height: clamp(380px, 48vh, 560px);
+  }
+}
+
+.hero-visual-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.hero-visual-slide.is-active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.hero-visual-slide[hidden] {
+  display: block;
+}
+
+.hero-visual {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-visual svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.hero-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.hero-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-button);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--hg-white);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.hero-arrow:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.hero-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.hero-dot.is-active {
+  background: var(--hg-cyan);
+  transform: scale(1.15);
+}
+
+@media (max-width: 899px) {
+  .hero-copy {
+    max-width: none;
+  }
+
+  .hero-text-track {
+    min-height: 240px;
+  }
 }
 
 /* Sections */
@@ -606,8 +772,10 @@ p { max-width: 68ch; }
 }
 
 .footer-logo img {
-  height: 28px;
+  height: 30px;
   width: auto;
+  max-width: min(240px, 70vw);
+  opacity: 0.92;
 }
 
 .footer-nav {
@@ -632,6 +800,11 @@ p { max-width: 68ch; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
+    transition: none !important;
+  }
+
+  .hero-text-slide,
+  .hero-visual-slide {
     transition: none !important;
   }
 }

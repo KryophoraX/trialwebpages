@@ -9,14 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/logo.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header" id="top">
     <div class="container header-inner">
-      <a class="site-logo" href="#top" aria-label="Hayagreeva">
-        <img src="assets/logo.svg" alt="" width="200" height="32" />
+      <a class="site-logo" href="#top" aria-label="Hayagreeva Energy Thermal Engineering">
+        <img src="assets/logo.png" alt="" width="240" height="35" />
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle__bar"></span>
@@ -38,19 +38,102 @@
 
   <main>
     <!-- Hero -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-inner">
-        <p class="eyebrow">Direct-to-chip liquid cooling</p>
-        <h1 id="hero-title">Hayagreeva HEx cold plate</h1>
-        <p class="hero-lead">
-          Engineered for next-generation AI accelerators — continuous heat removal
-          at the semiconductor package, with a copper-matrix path from die to facility rejection.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Request evaluation</a>
-          <a class="btn btn-secondary" href="#specs">View specifications</a>
+    <section class="hero" aria-roledescription="carousel" aria-label="Hayagreeva HEx highlights">
+      <div class="container hero-layout">
+        <div class="hero-copy">
+          <div class="hero-text-track" id="hero-text-track">
+            <article class="hero-text-slide is-active" data-slide="0">
+              <p class="eyebrow">Direct-to-chip liquid cooling</p>
+              <h1 id="hero-title">Hayagreeva HEx cold plate</h1>
+              <p class="hero-lead">
+                Engineered for next-generation AI accelerators — continuous heat removal
+                at the semiconductor package, with a copper-matrix path from die to facility rejection.
+              </p>
+            </article>
+            <article class="hero-text-slide" data-slide="1" hidden>
+              <p class="eyebrow">Rated thermal performance</p>
+              <h1>5,000+ W at the package</h1>
+              <p class="hero-lead">
+                Continuous heat removal above 5,000 W at 0.005 °C/W — rated capacity
+                stated at the die, not averaged across the rack.
+              </p>
+            </article>
+            <article class="hero-text-slide" data-slide="2" hidden>
+              <p class="eyebrow">Energy path</p>
+              <h1>From chip to facility rejection</h1>
+              <p class="hero-lead">
+                Chip → HEx → CDU → rejection. One engineered path moves waste heat
+                off the accelerator and out of the building.
+              </p>
+            </article>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Request evaluation</a>
+            <a class="btn btn-secondary" href="#specs">View specifications</a>
+          </div>
+          <p class="hero-meta">Product launch May 28, 2026 · Performance figures from public product materials</p>
+
+          <div class="hero-controls" aria-label="Hero slideshow controls">
+            <button class="hero-arrow hero-arrow--prev" type="button" aria-label="Previous slide">←</button>
+            <div class="hero-dots" role="tablist" aria-label="Choose slide">
+              <button class="hero-dot is-active" type="button" role="tab" aria-selected="true" aria-label="Slide 1: HEx cold plate" data-slide="0"></button>
+              <button class="hero-dot" type="button" role="tab" aria-selected="false" aria-label="Slide 2: Performance" data-slide="1"></button>
+              <button class="hero-dot" type="button" role="tab" aria-selected="false" aria-label="Slide 3: Energy path" data-slide="2"></button>
+            </div>
+            <button class="hero-arrow hero-arrow--next" type="button" aria-label="Next slide">→</button>
+          </div>
         </div>
-        <p class="hero-meta">Product launch May 28, 2026 · Performance figures from public product materials</p>
+
+        <div class="hero-showcase" aria-live="polite">
+          <div class="hero-visual-track" id="hero-visual-track">
+            <figure class="hero-visual-slide is-active" data-slide="0">
+              <div class="hero-visual hero-visual--plate" aria-hidden="true">
+                <svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="640" height="480" fill="#0f2438"/>
+                  <rect x="80" y="120" width="480" height="240" rx="12" fill="#246B9E" opacity="0.25"/>
+                  <rect x="140" y="170" width="360" height="140" rx="8" fill="#31A6C4" opacity="0.35"/>
+                  <text x="320" y="252" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Sans, sans-serif" font-size="22" font-weight="500">HEx cold plate</text>
+                </svg>
+              </div>
+              <figcaption class="visually-hidden">Hayagreeva HEx direct-to-chip cold plate</figcaption>
+            </figure>
+            <figure class="hero-visual-slide" data-slide="1" hidden>
+              <div class="hero-visual hero-visual--metrics" aria-hidden="true">
+                <svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="640" height="480" fill="#0f2438"/>
+                  <text x="80" y="100" fill="#31A6C4" font-family="IBM Plex Sans, sans-serif" font-size="14" font-weight="500">RATED PERFORMANCE</text>
+                  <text x="80" y="200" fill="#FFFFFF" font-family="IBM Plex Sans, sans-serif" font-size="56" font-weight="600">5,000+</text>
+                  <text x="80" y="240" fill="rgba(255,255,255,0.7)" font-family="IBM Plex Sans, sans-serif" font-size="18">W continuous removal</text>
+                  <text x="80" y="320" fill="#FFFFFF" font-family="IBM Plex Sans, sans-serif" font-size="40" font-weight="600">0.005</text>
+                  <text x="80" y="355" fill="rgba(255,255,255,0.7)" font-family="IBM Plex Sans, sans-serif" font-size="18">°C/W rated resistance</text>
+                </svg>
+              </div>
+              <figcaption class="visually-hidden">Performance metrics: 5,000+ W and 0.005 °C/W</figcaption>
+            </figure>
+            <figure class="hero-visual-slide" data-slide="2" hidden>
+              <div class="hero-visual hero-visual--path" aria-hidden="true">
+                <svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="640" height="480" fill="#0f2438"/>
+                  <g font-family="IBM Plex Sans, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">
+                    <rect x="40" y="200" width="110" height="56" rx="8" fill="#246B9E" opacity="0.35" stroke="#31A6C4"/>
+                    <text x="95" y="234" text-anchor="middle">Chip</text>
+                    <text x="175" y="234" fill="#31A6C4">→</text>
+                    <rect x="195" y="190" width="130" height="76" rx="8" fill="#246B9E" opacity="0.5" stroke="#31A6C4"/>
+                    <text x="260" y="228" text-anchor="middle">HEx</text>
+                    <text x="345" y="234" fill="#31A6C4">→</text>
+                    <rect x="365" y="200" width="90" height="56" rx="8" fill="#246B9E" opacity="0.35" stroke="#31A6C4"/>
+                    <text x="410" y="234" text-anchor="middle">CDU</text>
+                    <text x="475" y="234" fill="#31A6C4">→</text>
+                    <rect x="495" y="200" width="105" height="56" rx="8" fill="#246B9E" opacity="0.35" stroke="#31A6C4"/>
+                    <text x="547" y="234" text-anchor="middle">Facility</text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption class="visually-hidden">Energy path from chip through HEx and CDU to facility</figcaption>
+            </figure>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -300,8 +383,8 @@
 
   <footer class="site-footer" id="resources">
     <div class="container footer-inner">
-      <a class="footer-logo" href="#top" aria-label="Hayagreeva">
-        <img src="assets/logo-light.svg" alt="" width="180" height="32" />
+      <a class="footer-logo" href="#top" aria-label="Hayagreeva Energy Thermal Engineering">
+        <img src="assets/logo-light.png" alt="" width="220" height="32" />
       </a>
       <nav class="footer-nav" aria-label="Footer">
         <a href="#technology">Technology</a>
