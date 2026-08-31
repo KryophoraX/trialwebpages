@@ -1,35 +1,25 @@
 # Pages
 
-Each folder is a **standalone hero / home page** with its own HTML, CSS, and JS.
+## Active
 
-| Folder | Status | Style |
+| Folder | Status | Notes |
 |--------|--------|-------|
-| [`hayagreeva-energy/`](hayagreeva-energy/) | Live | KoolMicro scroll-snap, Montserrat wordmark, blue |
-| [`daynight-style/`](daynight-style/) | Live | Hayagreeva + DayNight structure: blue orb, cool→deep scroll |
-| [`hayagreeva-kaiko/`](hayagreeva-kaiko/) | Live | Kaiko-style: navy beam hero, cream panel, orb feature grid |
-| [`hayagreeva-flare/`](hayagreeva-flare/) | Live | Dark cinematic: animated blue sine beam, glass cards, HEx |
-| [`hayagreeva-liquid-glass/`](hayagreeva-liquid-glass/) | Disabled | Liquid glass, fuzzy blur, Cormorant serif, centered |
-| [`hayagreeva-noctra/`](hayagreeva-noctra/) | Disabled | Dark exhibition / Noctra-style: grain, serif + mono, cinematic black |
+| [`hayagreeva-energy/`](hayagreeva-energy/) | **Live** | Brand & UI Standards v1.0 — HEx cold-plate corporate page |
 
-**Disabled pages:** `index.html` redirects to the hub. Restore from `index.live.html` to re-enable.
+## Archived
+
+Style trials moved to [`archive/`](archive/). See [`archive/README.md`](archive/README.md).
 
 ## Conventions
 
 ```
-pages/your-page/
+pages/hayagreeva-energy/
   index.html
   styles.css
   script.js
-  assets/         # optional
+  assets/
 ```
 
-- Use root-relative links when served locally: `/`, `/pages/other-page/`
+- Design tokens: `--hg-navy`, `--hg-blue`, `--hg-cyan`, Inter + IBM Plex Sans
 - Run `./serve.sh` from repo root
-- Keep pages independent — no shared build step
-
-## Adding another page
-
-1. Copy an existing page folder as a starting point.
-2. Rename and replace content.
-3. Add a card in the root [`index.html`](../index.html).
-4. Add the URL to [`serve.sh`](../serve.sh) output.
+- Root `index.html` redirects to the active site

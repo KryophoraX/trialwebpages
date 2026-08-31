@@ -10,13 +10,11 @@ while lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; do
 done
 
 echo ""
-echo "  Trial Web Pages — local server"
+echo "  Hayagreeva — local server"
 echo "  ─────────────────────────────────────────"
-echo "  Hub:            http://127.0.0.1:${PORT}/"
-echo "  Hayagreeva:     http://127.0.0.1:${PORT}/pages/hayagreeva-energy/"
-echo "  Hayagreeva Orb: http://127.0.0.1:${PORT}/pages/daynight-style/"
-echo "  Kaiko:          http://127.0.0.1:${PORT}/pages/hayagreeva-kaiko/"
-echo "  Flare:          http://127.0.0.1:${PORT}/pages/hayagreeva-flare/"
+echo "  Site:           http://127.0.0.1:${PORT}/pages/hayagreeva-energy/"
+echo "  Hub redirect:   http://127.0.0.1:${PORT}/"
+echo "  Archive:        pages/archive/ (not served in menu)"
 echo "  ─────────────────────────────────────────"
 echo "  Press Ctrl+C to stop"
 echo ""
